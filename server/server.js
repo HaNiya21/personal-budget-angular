@@ -3,11 +3,19 @@ const path = require('path');
 const fs = require('fs'); // Add this line
 const app = express();
 const port = 3000;
+const cors = require('cors');
+app.use(cors()); 
 
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+
+app.get('/', (req, res) => { 
+    res.sendFile(path.join(__dirname, '..', 'old-code', 'index.html'));
+})
+// Serve the static files from the Angular app
+app.use(express.static(path.join(__dirname, 'dist','..', 'personal-budget')));
+
+app.get('/', (req, res) => { 
+    res.sendFile(path.join(__dirname, 'dist', '..', 'old-code','personal-budget', 'index.html'));
 });
 
 app.get('/budget', (req, res) => {
